@@ -5,6 +5,8 @@ import csv
 from random import randint
 import configparser
 import os
+
+#create customer master data file
 #open a file 
 file = open(os.path.join('Dataset','customermaster.dat'),'a')
 fwriter = csv.writer(file,delimiter=',')
@@ -15,8 +17,10 @@ cfg.read(os.path.join('config','configurationfile.ini'))
 
 minsalarya = cfg.getint('mastercustomerdescription','minsalary')
 maxsalarya = cfg.getint('mastercustomerdescription','maxsalary')
+custidmin = cfg.getint('transactiondata','customeridmin')
+custidmax = cfg.getint('transactiondata','customeridmax')
 
-for i in range(1,100,):
+for i in range(custidmin,custidmax):
 	customername = 'a'
 	customersalary = randint(minsalarya,maxsalarya)
 	customerid = i
@@ -24,3 +28,6 @@ for i in range(1,100,):
 	fwriter.writerow(customerrecord.split())
 
 file.close()
+
+#create transaction file
+file=open(os.path.join('Dataset','transactiondata'),'a')
