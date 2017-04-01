@@ -14,6 +14,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from itertools import groupby
 import os
+from sklearn.covariance import EmpiricalCovariance, MinCovDet,EllipticEnvelope
 # import modules
 import pandas as pd
  
@@ -27,8 +28,8 @@ names1 = ['cust_name', 'salary','cust_id']
 dataset = pandas.read_csv(url, names=names)
 dataset1 = pandas.read_csv(url1, names=names1)
 
-print(dataset.shape)
-print(dataset1.shape)
+#print(dataset.shape)
+#print(dataset1.shape)
  
 df1 = pd.DataFrame(dataset, columns = ['cust_id', 'cr_dr', 'amount', 'date', 'status'])
  
@@ -42,8 +43,23 @@ df2 = pd.DataFrame(dataset1, columns = ['cust_id', 'salary'])
 merge_result=pd.merge(df1, df2, how='outer', on=['cust_id', 'cust_id'])
 
 results = (merge_result.sort_index(ascending=[1, 0]))
-print (results.shape)
-print(results.describe())
+#print (results.shape)
+#print(results.describe())
  
 #result = df2.join(df1, on='cust_id')
-print(results)
+#print(results)
+
+## apply elliptic envelope covariance on the data set
+#results.to_csv("results.dat")
+
+
+#we have the final data set with us, with dimension salary added to transaction data
+#With salary dimension added, this data set is assumed to be Gaussian normal distribution 
+# With this assumption, and since we have a contaminated data set , we will do a outliers analysis on the dataset
+#We will fit the data points in a elliptic envelope, and try to predict outliers on a selected data set
+
+outlier_analysis = EllipticEnvelope(contamination=0.1).fit(results)
+# predict if the dataset is valid, by taking a training set as 1
+outlier_analysis.predict(results.head(1))
+#########
+#need to fix the error in fit call

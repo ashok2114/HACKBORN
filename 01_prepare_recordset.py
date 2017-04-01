@@ -46,9 +46,9 @@ for i in range(1,maxtransaction):
 	debitorcredit = int(round(random.uniform(0.0,0.99)))
 	transamount = randint(mintransamount,maxtransamount)
 	transdate=randint(transstartdate,transenddate)
-	transstatus = TRANSSTATUS[int(round(random.uniform(0.0,0.99)))]
+	transstatus = int(round(random.uniform(0.0,0.99)))
 	
-	transrow = str(custid) + ' ' + str(debitorcredit) + ' ' + str(transamount) + ' ' + str(transdate) + ' '+ transstatus
+	transrow = str(custid) + ' ' + str(debitorcredit) + ' ' + str(transamount) + ' ' + str(transdate) + ' '+ str(transstatus)
 	ftransactionwriter.writerow(transrow.split())
 	
 filetrans.close()
