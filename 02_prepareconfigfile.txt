@@ -1,0 +1,13 @@
+import configparser
+import os
+#file to write configuration values
+#write configuration values for min and max salary
+config = configparser.RawConfigParser()
+
+config.add_section('mastercustomerdescription')
+config.set('mastercustomerdescription','minsalary','10000')
+config.set('mastercustomerdescription','maxsalary','7500000')
+
+fconfig = open(os.path.join('config','configurationfile.ini'),'w')
+config.write(fconfig)
+fconfig.close()
