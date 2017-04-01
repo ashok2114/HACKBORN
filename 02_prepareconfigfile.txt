@@ -14,10 +14,10 @@ config.add_section('transactiondata')
 config.set('transactiondata','transactionstartdate','42370')
 config.set('transactiondata','transactionenddate','42825')
 config.set('transactiondata','mintransactionamount','1')
-config.set('transactiondata','maxtransactinoamount','10000000')
+config.set('transactiondata','maxtransactionamount','10000000')
 config.set('transactiondata','customeridmin','1')
 config.set('transactiondata','customeridmax','100')
-
+config.set('transactiondata','maxtransactioncount','50000')
 
 
 fconfig = open(os.path.join('config','configurationfile.ini'),'w')

@@ -2,7 +2,8 @@
 
 #import header
 import csv
-from random import randint
+import random
+from random import randint, uniform
 import configparser
 import os
 
@@ -19,6 +20,9 @@ minsalarya = cfg.getint('mastercustomerdescription','minsalary')
 maxsalarya = cfg.getint('mastercustomerdescription','maxsalary')
 custidmin = cfg.getint('transactiondata','customeridmin')
 custidmax = cfg.getint('transactiondata','customeridmax')
+maxtransaction = cfg.getint('transactiondata','maxtransactioncount')
+mintransamount = cfg.getint('transactiondata','mintransactionamount')
+maxtransamount = cfg.getint('transactiondata','maxtransactionamount')
 
 for i in range(custidmin,custidmax):
 	customername = 'a'
@@ -30,4 +34,22 @@ for i in range(custidmin,custidmax):
 file.close()
 
 #create transaction file
-file=open(os.path.join('Dataset','transactiondata'),'a')
+filetrans=open(os.path.join('Dataset','transactiondata.dat'),'a')
+ftransactionwriter = csv.writer(filetrans,delimiter=',')
+
+TRANSSTATUS=['DONE','COMPLETED']
+
+for i in range(1,maxtransaction):	
+	custid = randint(custidmin,custidmax)
+	debitorcredit = int(round(random.uniform(0.0,0.99)))
+	transamount = randint(mintransamount,maxtransamount)
+	transstatus = TRANSSTATUS[int(round(random.uniform(0.0,0.99)))]
+	
+	transrow = str(custid) + ' ' + str(debitorcredit) + ' ' + str(transamount) + ' ' +transstatus
+	ftransactionwriter.writerow(transrow.split())
+	
+filetrans.close()
+
+################################
+	
+	
