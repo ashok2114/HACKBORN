@@ -23,9 +23,12 @@ import pandas as pd
 url =  os.path.join('Dataset','transactiondata.dat')
 url1 =os.path.join('Dataset', 'customermaster.dat')
 names = ['cust_id', 'cr_dr', 'amount', 'date', 'status']
-names = ['cust_name', 'salary','cust_id']
+names1 = ['cust_name', 'salary','cust_id']
 dataset = pandas.read_csv(url, names=names)
-dataset1 = pandas.read_csv(url1, names=names)
+dataset1 = pandas.read_csv(url1, names=names1)
+
+print(dataset.shape)
+print(dataset1.shape)
  
 df1 = pd.DataFrame(dataset, columns = ['cust_id', 'cr_dr', 'amount', 'date', 'status'])
  
@@ -37,7 +40,10 @@ df2 = pd.DataFrame(dataset1, columns = ['cust_id', 'salary'])
  
  
 merge_result=pd.merge(df1, df2, how='outer', on=['cust_id', 'cust_id'])
-print(merge_result.sort_index(ascending=[1, 0]))
+
+results = (merge_result.sort_index(ascending=[1, 0]))
+print (results.shape)
+print(results.describe())
  
 #result = df2.join(df1, on='cust_id')
-#print(result)
+print(results)

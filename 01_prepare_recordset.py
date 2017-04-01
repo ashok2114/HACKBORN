@@ -23,6 +23,8 @@ custidmax = cfg.getint('transactiondata','customeridmax')
 maxtransaction = cfg.getint('transactiondata','maxtransactioncount')
 mintransamount = cfg.getint('transactiondata','mintransactionamount')
 maxtransamount = cfg.getint('transactiondata','maxtransactionamount')
+transstartdate = cfg.getint('transactiondata','transactionstartdate')
+transenddate = cfg.getint('transactiondata','transactionenddate')
 
 for i in range(custidmin,custidmax):
 	customername = 'a'
@@ -43,9 +45,10 @@ for i in range(1,maxtransaction):
 	custid = randint(custidmin,custidmax)
 	debitorcredit = int(round(random.uniform(0.0,0.99)))
 	transamount = randint(mintransamount,maxtransamount)
+	transdate=randint(transstartdate,transenddate)
 	transstatus = TRANSSTATUS[int(round(random.uniform(0.0,0.99)))]
 	
-	transrow = str(custid) + ' ' + str(debitorcredit) + ' ' + str(transamount) + ' ' +transstatus
+	transrow = str(custid) + ' ' + str(debitorcredit) + ' ' + str(transamount) + ' ' + str(transdate) + ' '+ transstatus
 	ftransactionwriter.writerow(transrow.split())
 	
 filetrans.close()
